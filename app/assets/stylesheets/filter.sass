@@ -1,0 +1,178 @@
+.filter-container
+  width: 100%
+  height: 47px
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 1rem
+  font-size: 14px
+
+.main-container
+  min-width: 600px
+
+.filter-heading-container
+  display: flex
+  align-items: center
+
+.select-style
+  width: 200px
+  font-size: 14px
+  margin: 0
+
+.filter-heading
+  font-weight: bold
+  margin-right: 0.5rem
+  font-size: 17px
+
+.filter-brand-heading, .filter-size-heading, .filter-type-heading, .filter-price-heading, .filter-colour-heading
+  font-weight: bold
+  font-size: 14px
+
+.js-brand-filter-icon, .js-type-filter-icon, .js-size-filter-icon, .js-main-filter-icon, .js-price-filter-icon, .js-colour-filter-icon
+  height: 11px
+  width: 11px
+  background-image: asset-url('minus.svg')
+  background-position: center
+  background-size: cover
+
+.filter-icon-minus
+  height: 11px
+  width: 11px
+  background-image: asset-url('add.svg')
+  background-position: center
+  background-size: cover
+
+.filter-data-options-container
+  width: 100%
+  float: left
+  margin: 0 1rem 0 0
+
+.box-1
+  float: left
+  width: 15%
+  overflow-x: hidden
+  transition: 1s
+
+.box-2
+  float: left
+  width: 85%
+  transition: 1s
+
+.clearfix::after
+  content: ""
+  clear: both
+  display: table
+
+.filter-brand-container, .filter-price-container
+  border-bottom: 1px solid #ccc
+  padding-bottom: 1rem
+  margin-bottom: 2rem
+
+.filter-size-container
+  border-bottom: 1px solid #ccc
+  padding-bottom: 1rem
+  margin-bottom: 2rem
+
+.filter-colour-container
+  border-bottom: 1px solid #ccc
+  padding-bottom: 1rem
+  margin-bottom: 2rem
+
+.filter-type-container, .price-range-container
+  border-bottom: 1px solid #ccc
+  padding-bottom: 1rem
+  margin-bottom: 2rem
+
+.heading-container
+  display: flex
+  justify-content: space-between
+  margin-bottom: 2rem
+  line-height: 11px
+
+.close-filter-text
+  font-size: 20px
+
+.black-box-container
+  display: flex
+  height: 30px
+  min-width: 160px
+
+.black-box
+  width: 11px
+  height: 11px
+  margin-right: 0.5rem
+  background: #dfdfdf url("//cdn.shopify.com/s/files/1/0740/8743/t/124/assets/checkbox-deselected.svg?15257")
+  background-position: center
+  background-size: cover
+
+.small-black-box
+  width: 12px
+  height: 12px
+  background: #dfdfdf url("//cdn.shopify.com/s/files/1/0740/8743/t/124/assets/check-box-select.svg?15257")
+  background-position: center
+  background-size: cover
+
+.sub-heading
+  color: black
+  font-size: 14px
+  line-height: 11px
+  // transition: .5s
+  &:hover, &:active, &:focus, &:disabled
+    color: #fe89b5
+
+.tick-icon
+  float: right
+  width: 9px
+  height: 9px
+  background-image: asset-url('check-symbol.svg')
+  background-position: center
+  background-size: cover
+  margin-left: auto
+  margin-right: 7px
+
+.remove-filter
+  float: right
+  width: 9px
+  height: 9px
+  background-image: asset-url('cancel.svg')
+  background-position: center
+  background-size: cover
+  margin-left: auto
+
+.scroll-filter
+  max-height: 20em
+  overflow-y: scroll
+  overflow-x: hidden
+
+.filter-overlay
+  background: rgba(0,0,0,.2)
+  height: 100%
+  width: 100%
+  z-index: 4800
+  top: 0
+  left: 0
+  position: fixed
+  display: none
+
+.search-result-empty
+  width: 100%
+  text-align: center
+  height: 100vh
+  position: relative
+
+.search-result-empty-text
+  font-size: 22px
+  color: black
+  font-weight: bold
+  position: relative
+  top: 25%
+
+#shopify-section-cust-footer
+.penbtn-container
+.main-container
+
+.price-range-submit
+  border-radius: 5px
+  margin-top: 1rem
+  width: 100%
+  &:hover

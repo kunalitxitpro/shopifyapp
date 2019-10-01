@@ -1,0 +1,40 @@
+- if desktop
+  .filter-colour-container.hidden-on-small-screen
+    .heading-container
+      .filter-colour-heading COLOUR
+      .js-colour-filter-icon.js-show-colour-filter
+    .filter-colour-collection.js-colour-container.scroll-filter
+      - @colours.each do |va|
+        - colour = [va] << params[:colour]
+        = link_to proxy_prod_path(colour: colour.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], brand: params[:brand], collection: handle_for_collection) do
+          - if params[:colour] && params[:colour].include?(va)
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = va
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading = va
+
+- else
+  .filter-colour-container
+    .heading-container
+      .filter-colour-heading style='color: white' COLOUR
+      .js-colour-filter-icon.js-show-colour-filter.filter-icon-minus
+    .filter-colour-collection.js-colour-container
+      - @colours.each do |va|
+          - colour = [va] << params[:colour]
+          = link_to proxy_prod_path(colour: colour.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], brand: params[:brand], collection: handle_for_collection) do
+          - if params[:colour] && params[:colour].include?(va)
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading style='color: white' = va
+              .tick-icon
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading style='color: white' = va

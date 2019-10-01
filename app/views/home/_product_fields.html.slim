@@ -1,0 +1,47 @@
+.single-product-container
+  - if params[:q]
+    .the-modal
+      .row.row-style
+        .the-modal-sub.medium-8.small-12large-8 style="background-image: url('#{product.first_image_url}'); background-size: cover"
+        .the-modal-sub-two.medium-4.small-12.large-4
+          .model-close &times;
+          .prod-attr = product.vendor
+          .prod-attr__small = product.title
+          div style="display: flex; align-items: center; margin: 0.5rem 0; line-height: 22px"
+            .prod-attr__price = "£ #{product.display_price} GBP"
+            - if product.compare_at_price != 0.0
+              .prod-attr__small style="font-size: 22px; margin: 0" = "£ #{product.compare_at_display_price}"
+          .prod-attr__small Size guide
+          .select-box
+            .prod-attr__small style="margin-right: 1rem" Size
+            select style="border-radius: 5px; width: 100%"
+              - product.sizes.each do |size|
+                option value="#{size.shopify_id}" = size.title
+          div style="display: flex; align-items: center"
+            = link_to 'Add to Cart', 'javascript:void(0)', class: 'button js-cart-btn', style: 'background-color: #000000; width: 100%;font-size: 17px;font-weight: bold;'
+          .shopify-info-block
+            = product.body_html.try(:html_safe)
+          p.js-cart-error style="color: red"
+
+  .blur-div
+      = link_to "/products/#{product.slug_url}" do
+        - if product.quantity <= 0
+          div style="background: black;height: 23px;position: absolute; padding: 6px"
+           span style="color: white" Sold Out
+        .img-container
+          .product-image style="background-image: url('#{product.first_image_url}')" value='#{product.id}'
+          .product-image-two style="display: none; background-image: url('#{product.second_image_url}')"
+      - if params[:q]
+        .quick-view-button
+          span.quick-view-text QUICK VIEW
+      = link_to "/products/#{product.slug_url}" do
+        .vendor-field = product.vendor
+        .title-container
+          .title-field = product.title
+        .price-container
+          - if product.quantity > 0
+            div class="price-field #{product.compare_at_price != 0.0 ? 'new-sale' : ''}" = "£ #{product.display_price} GBP"
+            - if product.compare_at_price != 0.0
+              .compare-at-price = "£ #{product.compare_at_display_price}"
+          - else
+            div class="price-field" style="font-weight: 300; color: black" Sold Out

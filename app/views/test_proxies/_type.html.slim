@@ -1,0 +1,39 @@
+- if desktop
+  .filter-type-container.hidden-on-small-screen
+    .heading-container
+      .filter-type-heading TYPE
+      .js-type-filter-icon.js-show-type-filter
+    .filter-type-collection.js-type-container
+      - @product_type.each do |pt|
+        - prodtype = [pt] << params[:product_type]
+        = link_to test_proxies_path(size: params[:size], brand: params[:brand], product_type: prodtype.compact.flatten.uniq, price: params[:price]) do
+          - if params[:product_type] == pt
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = pt
+              .tick-icon
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading = pt
+- else
+  .filter-type-container
+    .heading-container
+      .filter-type-heading style='color: white' TYPE
+      .js-type-filter-icon.js-show-type-filter
+    .filter-type-collection.js-type-container
+      - @product_type.each do |pt|
+        = link_to test_proxies_path(size: params[:size], brand: params[:brand], product_type: pt) do
+          - if params[:product_type] == pt
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading style='color: white' = pt
+              .tick-icon
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading style='color: white' = pt

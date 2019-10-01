@@ -1,0 +1,39 @@
+- if desktop
+  .filter-size-container.hidden-on-small-screen
+    .heading-container
+      .filter-size-heading SIZE
+      .js-size-filter-icon.js-show-size-filter
+    .filter-size-collection.js-size-container
+      - @size_array.each do |size|
+        - multisize = [size] << params[:size]
+        = link_to test_proxies_path(size: multisize.compact.flatten.uniq, brand: params[:brand], product_type: params[:product_type], price: params[:price]) do
+          - if params[:size] == size
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = size
+              .tick-icon
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading = size
+- else
+  .filter-size-container
+    .heading-container
+      .filter-size-heading style='color: white' SIZE
+      .js-size-filter-icon.js-show-size-filter
+    .filter-size-collection.js-size-container
+      - @size_array.each do |size|
+        = link_to test_proxies_path(size: size, brand: params[:brand], product_type: params[:product_type]) do
+          - if params[:size] == size
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading style='color: white' = size
+              .tick-icon
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading  style='color: white' = size

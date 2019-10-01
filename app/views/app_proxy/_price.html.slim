@@ -1,0 +1,24 @@
+- if desktop
+  .price-range-container
+    div
+      .heading-container
+        span for="amount-two" style=" font-weight: bold; font-size: 14px" PRICE RANGE:
+        .js-price-filter-icon.js-show-price-filter
+      div.js-price-container
+        input#amount-two readonly="" style="border:0; color: #fe89b5; font-weight:bold; box-shadow: none; background-color: #fefefe; padding-left: 0rem" type="text"
+      div.js-price-container
+        #slider-range-two
+        .price-range-submit
+          = link_to 'Filter Price', 'javascript:void(0)', class: 'button js-filter-price', style: 'background: black; width: 100%'
+- else
+  .price-range-container
+    div
+      .heading-container
+        span style="color: white; font-weight: bold; font-size: 14px" for="amount"  PRICE RANGE:
+        .js-price-filter-icon.js-show-price-filter.filter-icon-minus
+      div.js-price-container
+        input#amount readonly="" style="border:0; color: #fe89b5; font-weight:bold; background-color: #111111; box-shadow: none; padding-left: 0rem" type="text"
+      div.js-price-container
+        #slider-range
+        .price-range-submit
+          = link_to 'Filter Price', 'javascript:void(0)', class: 'button js-filter-price-mobile', style: 'background: white; width: 100%'

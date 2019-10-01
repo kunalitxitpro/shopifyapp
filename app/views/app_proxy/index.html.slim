@@ -1,0 +1,223 @@
+.app-container
+  .sidebar-js
+  #mySidenav.sidenav.hidden-on-large-screen
+    .mobi-scroll
+      div style="width: 65%;"
+        - if ProductSetting.last.true_filter_on
+          div style='padding: 1rem 1rem'
+            .close-filter-container style="#{@filter_present ? 'margin-bottom: 1rem' : ''}"
+              .close-filter-text FILTER
+              div.closebtn style="padding-left: 30px;"
+                a.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+            - if @filter_present
+              div style="width: 100%;height: 30px;margin-bottom: 3em;"
+                = link_to 'CLEAR ALL', proxy_prod_path(sort_by: params[:sort_by], collection: handle_for_collection), style: 'background: #646464;color: white;float: right;font-weight: bold;width: 100%;text-align: center;'
+
+            - if params[:brand].present?
+              - params[:brand].each do |brand|
+                - newbrand = params[:brand].dup
+                - newbrand.delete(brand)
+                = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, collection: handle_for_collection) do
+                  .black-box-container
+                    .black-box-parent style='position: relative'
+                      .black-box style='position: relative; top: 0; left: 0'
+                      .small-black-box style='position: absolute; top: 0; left: 0'
+                    .sub-heading = brand
+                    .remove-filter
+
+            - if params[:size].present?
+              - params[:size].each do |size|
+                - newSize = params[:size].dup
+                - newSize.delete(size)
+                = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, collection: handle_for_collection) do
+                  .black-box-container
+                    .black-box-parent style='position: relative'
+                      .black-box style='position: relative; top: 0; left: 0'
+                      .small-black-box style='position: absolute; top: 0; left: 0'
+                    .sub-heading = "Size #{size}"
+                    .remove-filter
+
+              - if params[:price].present?
+                = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], collection: handle_for_collection) do
+                  .black-box-container
+                    .black-box-parent style='position: relative'
+                      .black-box style='position: relative; top: 0; left: 0'
+                      .small-black-box style='position: absolute; top: 0; left: 0'
+                    .sub-heading = params[:price]
+                    .remove-filter
+
+            - if params[:product_type].present?
+              - params[:product_type].each do |pt|
+                - newpt = params[:product_type].dup
+                - newpt.delete(pt)
+                = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, collection: handle_for_collection) do
+                  .black-box-container
+                    .black-box-parent style='position: relative'
+                      .black-box style='position: relative; top: 0; left: 0'
+                      .small-black-box style='position: absolute; top: 0; left: 0'
+                    .sub-heading = pt
+                    .remove-filter
+
+            - if params[:colour].present?
+              - params[:colour].each do |colour|
+                - newcolour = params[:colour].dup
+                - newcolour.delete(colour)
+                = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour, collection: handle_for_collection) do
+                  .black-box-container
+                    .black-box-parent style='position: relative'
+                      .black-box style='position: relative; top: 0; left: 0'
+                      .small-black-box style='position: absolute; top: 0; left: 0'
+                    .sub-heading = colour
+                    .remove-filter
+
+            - ProductSetting.last.filter_array.each do |filter|
+              = render partial: filter, locals: {desktop: false}
+
+  #myLeftSidenav.sidenav.hidden-on-large-screen style="background: black"
+    div style='padding: 0 20px'
+      .close-filter-container style='margin: 1rem 0 1rem 0'
+        .close-filter-text SORT
+        div.close-sort-btn style="padding-left: 30px;"
+          a.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+      .sort-nav-container
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', q: params[:q], collection: handle_for_collection)}"
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', q: params[:q], collection: handle_for_collection)}" Alphabetically, A-Z
+      .sort-nav-container
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending', q: params[:q], collection: handle_for_collection)}"
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending', q: params[:q], collection: handle_for_collection)}" Alphabetically, Z-A
+      .sort-nav-container
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', q: params[:q], collection: handle_for_collection)}"
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', q: params[:q], collection: handle_for_collection)}" Price, low to high
+      .sort-nav-container
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', q: params[:q], collection: handle_for_collection)}"
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', q: params[:q], collection: handle_for_collection)}" Price, high to low
+      .sort-nav-container
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', q: params[:q], collection: handle_for_collection)}"
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', q: params[:q], collection: handle_for_collection)}" Date, new to old
+      .sort-nav-container
+        a.black-box href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', q: params[:q], collection: handle_for_collection)}"
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', q: params[:q], collection: handle_for_collection)}" Date, old to new
+
+  .hidden-on-large-screen
+      - if params[:q].present?
+        div style="font-size: 18px; font-weight: bold;" = "SEARCH RESULTS FOR #{params[:q]}".upcase
+      - else
+        - if @collection.present?
+          div style="font-size: 18px; font-weight: bold;" = "#{@collection.title.upcase} VINTAGE"
+        - else
+          div style="font-size: 18px; font-weight: bold;" = params[:collection].present? ? "#{Filter.title_string_for_collection(params[:collection]).upcase} VINTAGE"  : 'TRUE VINTAGE NEW IN'
+      div style="font-size: 13px;"= "#{@products_count} ITEMS FOUND"
+  .openbtn-container.hidden-on-large-screen
+    - if ProductSetting.last.true_filter_on
+      .openbtn-sub-container.hidden-on-large-screen.openbtn style="padding: 3px 0"
+        span.hidden-on-large-screen style="font-size:14px; cursor:pointer" FILTER
+
+    .openbtn-sub-container.hidden-on-large-screen.open-sort-btn style="padding: 3px 0"
+      span.hidden-on-large-screen style="font-size:14px; cursor:pointer" SORT
+
+  - if params[:q].present?
+    .product-searched-heading.hidden-on-small-screen = "SEARCH RESULTS FOR #{params[:q]}".upcase
+  - else
+    - if @collection.present?
+      .product-searched-heading.hidden-on-small-screen = @collection.present? ? "#{@collection.title.upcase} VINTAGE"  : 'TRUE VINTAGE NEW IN'
+    - else
+      .product-searched-heading.hidden-on-small-screen = params[:collection].present? ? "#{Filter.title_string_for_collection(params[:collection]).upcase} VINTAGE"  : 'TRUE VINTAGE NEW IN'
+  .products-found-count.hidden-on-small-screen = "#{@products_count} ITEMS FOUND"
+
+  .filter-container.hidden-on-small-screen
+    .filter-heading-container style="z-index: 400"
+      - if ProductSetting.last.true_filter_on
+        .filter-heading FILTER
+        .js-main-filter-icon.js-show-main-filter
+    .dropdown
+      button.dropbtn
+        span style="color: black" = sort_params_title(params[:sort_by])
+        .arrow-down
+      .dropdown-content
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending', q: params[:q], collection: handle_for_collection)}"  Alphabetically, A-Z
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending', q: params[:q], collection: handle_for_collection)}"  Price, low to high
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending', q: params[:q], collection: handle_for_collection)}"  Price, high to low
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending', q: params[:q], collection: handle_for_collection)}"  Date, new to old
+        a href="#{proxy_prod_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending', q: params[:q], collection: handle_for_collection)}"  Date, old to new
+
+
+  .clearfix.main-container
+    - if @filter_present
+      .js-clear-filter.hidden-on-small-screen style="width: 15%; height: 30px; position: relative; z-index: 4; top: -52px; overflow: hidden;"
+        = link_to 'CLEAR ALL', proxy_prod_path(sort_by: params[:sort_by], collection: handle_for_collection), style: 'background: black; color: white; padding: 2px 20px 4px 19px; float: right; font-weight: bold'
+    - if ProductSetting.last.true_filter_on
+      .box-1
+        .filter-data-options-container.js-main-container.hidden-on-small-screen#js-sidebar-filter
+          - if params[:brand].present?
+            - params[:brand].each do |brand|
+              - newbrand = params[:brand].dup
+              - newbrand.delete(brand)
+              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand, q: params[:q], collection: handle_for_collection) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = brand
+                  .remove-filter
+
+          - if params[:size].present?
+            - params[:size].each do |size|
+              - newSize = params[:size].dup
+              - newSize.delete(size)
+              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize, q: params[:q], collection: handle_for_collection) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = "Size #{size}"
+                  .remove-filter
+
+            - if params[:price].present?
+              = link_to proxy_prod_path(brand: params[:brand], product_type: params[:product_type], size: params[:size], q: params[:q], collection: handle_for_collection) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = params[:price]
+                  .remove-filter
+
+          - if params[:product_type].present?
+            - params[:product_type].each do |pt|
+              - newpt = params[:product_type].dup
+              - newpt.delete(pt)
+              = link_to proxy_prod_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt, q: params[:q], collection: handle_for_collection) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = pt
+                  .remove-filter
+
+          - if params[:colour].present?
+            - params[:colour].each do |colour|
+              - newcolour = params[:colour].dup
+              - newcolour.delete(colour)
+              = link_to proxy_prod_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: params[:brand], colour: newcolour, q: params[:q], collection: handle_for_collection) do
+                .black-box-container
+                  .black-box-parent style='position: relative'
+                    .black-box style='position: relative; top: 0; left: 0'
+                    .small-black-box style='position: absolute; top: 0; left: 0'
+                  .sub-heading = colour
+                  .remove-filter
+
+          - ProductSetting.last.filter_array.each do |filter|
+            = render partial: filter, locals: {desktop: true}
+    .box-2 style="#{ProductSetting.last.true_filter_on ? '' : 'width: 100% !important'}"
+      .product-container
+        .js-all-products
+          = render partial: 'home/products', locals: {showFirst: true}
+
+    - if ProductSetting.last.autoscroll_on
+      .gif-container
+        .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
+    - else
+      div style="width: 100%; text-align: center"
+        = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;height: 56px;font-size: 20px; background-color: black'
+javascript:
+  Window.paramUrl = "&#{request.url.split('?')[1].split('shop')[0]}&collection=#{handle_for_collection}"
+  Window.noOfProducts = "#{ProductSetting.last.number_of_items_to_load}"

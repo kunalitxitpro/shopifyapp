@@ -1,0 +1,79 @@
+= content_for :javascript do
+  javascript:
+    ShopifyApp.ready(function(){
+      ShopifyApp.Bar.initialize({ title: "Home"});
+    });
+= simple_form_for :product_setting, url: product_setting_path(ProductSetting.last.id), method: :put do |f|
+  .admin-section-container
+    .admin-section-header-container
+      .admin-section-header True search admin
+    .row
+      .admin-section-side-bar-container.columns.medium-2 style="padding: 0"
+        .js-true-search-option style='border-left: 5px solid rgb(92, 106, 196); background-color: white; color: rgb(92, 106, 196);'
+          = image_tag('search.svg', size: '20', style: 'margin: 0.5rem')
+          .admin-section-side-bar-text True search
+      .js-admin-section-search-config-container.columns.medium-10
+        .header-box
+          span True search
+          span The following configurations relate to the True search app
+          = link_to 'Sync Products', sync_products_path, class: 'button', style: 'margin: 0; background-color: #3f4eae; border-radius: 5px'
+        .filter-app-config-container
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              - if ProductSetting.last.true_search_on
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_true_search_on').val() == '1' ? $('#product_setting_true_search_on').val('0') : $('#product_setting_true_search_on').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_true_search_on').val() == '1' ? $('#product_setting_true_search_on').val('0') : $('#product_setting_true_search_on').val('1')"
+              span.slider.round
+            .toggle-switch-text True Search Active
+            = f.input :true_search_on, as: :hidden, input_html: { value: "#{ProductSetting.last.true_search_on ? '1' : '0'}" }
+          hr
+          .toggle-switch
+            label.switch
+              - if ProductSetting.last.include_out_of_stock_products
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_include_out_of_stock_products').val() == '1' ? $('#product_setting_include_out_of_stock_products').val('0') : $('#product_setting_include_out_of_stock_products').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_include_out_of_stock_products').val() == '1' ? $('#product_setting_include_out_of_stock_products').val('0') : $('#product_setting_include_out_of_stock_products').val('1')"
+              span.slider.round
+            .toggle-switch-text Include out of stock products
+            = f.input :include_out_of_stock_products, as: :hidden, input_html: { value: "#{ProductSetting.last.include_out_of_stock_products ? '1' : '0'}" }
+
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              - if ProductSetting.last.related_search_on
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_related_search_on').val() == '1' ? $('#product_setting_related_search_on').val('0') : $('#product_setting_related_search_on').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_related_search_on').val() == '1' ? $('#product_setting_related_search_on').val('0') : $('#product_setting_related_search_on').val('1')"
+              span.slider.round
+            .toggle-switch-text Toggle related search
+            = f.input :related_search_on, as: :hidden, input_html: { value: "#{ProductSetting.last.related_search_on ? '1' : '0'}" }
+
+          .toggle-switch style="margin-top: 1rem"
+            label.switch
+              - if ProductSetting.last.overflow_scroll_on
+                input class="boolean optional" type="checkbox" checked="checked" onclick="$('#product_setting_overflow_scroll_on').val() == '1' ? $('#product_setting_overflow_scroll_on').val('0') : $('#product_setting_overflow_scroll_on').val('1')"
+              - else
+                input class="boolean optional" type="checkbox" onclick="$('#product_setting_overflow_scroll_on').val() == '1' ? $('#product_setting_overflow_scroll_on').val('0') : $('#product_setting_overflow_scroll_on').val('1')"
+              span.slider.round
+            .toggle-switch-text Toggle overflow scroll on products searched
+            = f.input :overflow_scroll_on, as: :hidden, input_html: { value: "#{ProductSetting.last.overflow_scroll_on ? '1' : '0'}" }
+
+          .synonym-container
+            = f.simple_fields_for :product_synonyms do |p|
+              .js-syn-container
+                - ProductSetting.last.product_synonyms.each do |ps|
+                  .row
+                    .columns.medium-6.small-6.large-6
+                      = p.input :synonym, label: false, placeholder: 'Synonym', required: false, input_html: {name: 'product_setting[product_synonyms][synonym][]', value: ps.synonym, style: 'border-radius: 5px'}
+                    .columns.medium-6.small-6.large-6
+                      = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]', value: ps.value, style: 'border-radius: 5px'}
+                      = p.input :id, as: :hidden, input_html: { value: ps.id, name: 'product_setting[product_synonyms][id][]' }
+                .js-new-syn
+                  .row
+                    .columns.medium-6.small-6.large-6
+                      = p.input :synonym, label: false, placeholder: 'Synonym', required: false, input_html: {name: 'product_setting[product_synonyms][synonym][]', style: 'border-radius: 5px', class: 'js-syn-field'}
+                    .columns.medium-6.small-6.large-6
+                      = p.input :value, label: false, placeholder: 'Lookup Value', required: false, input_html: {name: 'product_setting[product_synonyms][value][]', style: 'border-radius: 5px', class: 'js-syn-field'}
+          = link_to 'Add new synonym', 'javascript:void(0)', class: 'button js-new-syn-button', style: 'width: 230px'
+
+          = f.submit 'Submit', class: 'button' ,style: 'width: 50%; border-radius: 5px; background-color: #3f4eae; display: block'

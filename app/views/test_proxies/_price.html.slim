@@ -1,0 +1,38 @@
+- if desktop
+  .filter-price-container.hidden-on-small-screen
+    .heading-container
+      .filter-price-heading PRICE
+      .js-price-filter-icon.js-show-price-filter
+    .filter-price-collection.js-price-container
+      - @price_ranges.each do |pr|
+        = link_to test_proxies_path(size: params[:size], brand: params[:brand], product_type: params[:product_type], price: pr) do
+          - if params[:product_type] == pr
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = "£ #{pr}"
+              .tick-icon
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading = "£ #{pr}"
+- else
+  .filter-price-container
+    .heading-container
+      .filter-price-heading style="color: white" PRICE
+      .js-price-filter-icon.js-show-price-filter
+    .filter-price-collection.js-price-container
+      - @price_ranges.each do |pr|
+        = link_to test_proxies_path(size: params[:size], brand: params[:brand], product_type: pr) do
+          - if params[:product_type] == pr
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading style="color: white" = "£ #{pr}"
+              .tick-icon
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading style="color: white" = "£ #{pr}"

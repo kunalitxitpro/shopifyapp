@@ -1,0 +1,4 @@
+.row
+  - @products.each do |product|
+    .columns.medium-4.small-6.large-3 style="margin-bottom: 46px" class="js-product-group js-product-id-#{product.id}"
+      = render partial: 'test_admins/product_fields', locals: {product: product}

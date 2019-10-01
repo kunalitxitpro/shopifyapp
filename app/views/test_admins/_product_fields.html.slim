@@ -1,0 +1,11 @@
+.single-product-container
+  .img-container
+    .product-image style="background-image: url('#{product.first_image_url}')"
+    .product-image-two style="display: none; background-image: url('#{product.second_image_url}')"
+  .vendor-field = product.vendor
+  .title-container
+    .title-field = product.title
+  .price-container
+    .price-field = "£ #{product.price} GBP"
+    - if product.compare_at_price != 0.0
+      .compare-at-price = "£ #{product.compare_at_price}"

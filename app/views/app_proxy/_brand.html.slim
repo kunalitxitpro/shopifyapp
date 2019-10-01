@@ -1,0 +1,40 @@
+- if desktop
+  .filter-brand-container.hidden-on-small-screen
+    .heading-container
+      .filter-brand-heading BRAND
+      .js-brand-filter-icon.js-show-brand-filter
+    .filter-brand-collection.js-brand-container.scroll-filter
+      - @vendor_array.each do |va|
+        - brand = [va] << params[:brand]
+        = link_to proxy_prod_path(brand: brand.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], collection: handle_for_collection) do
+          - if params[:brand] && params[:brand].include?(va)
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = va
+          - else
+            .black-box-container
+              .black-box
+              .sub-heading = va
+
+- else
+  .filter-brand-container
+    .heading-container
+      .filter-brand-heading style='color: white' BRAND
+      .js-brand-filter-icon.js-show-brand-filter.filter-icon-minus
+    .filter-brand-collection.js-brand-container.scroll-filter
+      - @vendor_array.each do |va|
+          - brand = [va] << params[:brand]
+          = link_to proxy_prod_path(brand: brand.compact.flatten.uniq, size: params[:size], product_type: params[:product_type], price: params[:price], q: params[:q], collection: handle_for_collection) do
+            - if params[:brand] && params[:brand].include?(va)
+              .black-box-container
+                .black-box-parent style='position: relative'
+                  .black-box style='position: relative; top: 0; left: 0'
+                  .small-black-box style='position: absolute; top: 0; left: 0'
+                .sub-heading style='color: white' = va
+                .tick-icon
+            - else
+              .black-box-container
+                .black-box
+                .sub-heading style='color: white' = va

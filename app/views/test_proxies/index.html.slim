@@ -1,0 +1,184 @@
+.main-search.collapsed#main-search-id style="display: block"
+  input placeholder="Search..." type="text" class="main-search-input"
+  a.main-search-button
+.js-search-results
+
+.app-container
+  #mySidenav.sidenav.hidden-on-large-screen
+    div style='padding: 60px 16px'
+      .close-filter-container
+        .close-filter-text FILTER
+        a.closebtn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+
+      - if params[:brand].present?
+        = link_to test_proxies_path(size: params[:size], product_type: params[:product_type]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = params[:brand]
+            .remove-filter
+
+      - if params[:price].present?
+        = link_to test_proxies_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = params[:price]
+            .remove-filter
+
+      - if params[:size].present?
+        = link_to test_proxies_path(brand: params[:brand], product_type: params[:product_type]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = "Size #{params[:size]}"
+            .remove-filter
+
+      - if params[:product_type].present?
+        = link_to test_proxies_path(brand: params[:brand], size: params[:size]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = params[:product_type]
+            .remove-filter
+
+      - ProductSetting.last.filter_array.each do |filter|
+        = render partial: filter, locals: {desktop: false}
+
+  #myLeftSidenav.sidenav.hidden-on-large-screen
+    div style='padding: 0 20px'
+      .close-filter-container style='margin: 2rem 0 0 0'
+        .close-filter-text SORT
+        a.close-sort-btn.hidden-on-large-screen style="font-size: 20px" href="javascript:void(0)" &times;
+      .sort-nav-container
+        .black-box
+        a href="#{test_proxies_url}" Sort
+      .sort-nav-container
+        .black-box
+        a href="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')}" Alphabetically, A-Z
+      .sort-nav-container
+        .black-box
+        a href="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_descending')}" Alphabetically, Z-A
+      .sort-nav-container
+        .black-box
+        a href="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')}" Price, low to high
+      .sort-nav-container
+        .black-box
+        a href="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')}" Price, high to low
+      .sort-nav-container
+        .black-box
+        a href="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')}" Date, new to old
+      .sort-nav-container
+        .black-box
+        a href="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')}" Date, old to new
+
+  .openbtn-container.hidden-on-large-screen
+    .openbtn-sub-container.hidden-on-large-screen.openbtn
+      span.hidden-on-large-screen style="font-size:30px; cursor:pointer" FILTER
+
+    .openbtn-sub-container.hidden-on-large-screen.open-sort-btn
+      span.hidden-on-large-screen style="font-size:30px; cursor:pointer" SORT
+
+  .filter-container.hidden-on-small-screen
+    .filter-heading-container
+      .filter-heading FILTER
+      .js-main-filter-icon.js-show-main-filter
+    select.select-style.hidden-on-small-screen onchange="window.location.href=this.value;"
+      option value="#{test_proxies_url}" Sort
+      / DOG SHIT
+      - if params[:sort_by] == 'title_ascending'
+        option selected='selected' value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
+      - else
+        option value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'title_ascending')} " Alphabetically, A-Z
+
+      - if params[:sort_by] == 'price_ascending'
+        option selected='selected' value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+      - else
+        option value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_ascending')} " Price, low to high
+
+
+      - if params[:sort_by] == 'price_descending'
+        option selected='selected' value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
+      - else
+        option value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'price_descending')} " Price, high to low
+
+
+      - if params[:sort_by] == 'created_descending'
+        option selected='selected' value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
+      - else
+        option value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_descending')} " Date, new to old
+
+
+      - if params[:sort_by] == 'created_ascending'
+        option selected='selected' value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
+      - else
+        option value="#{test_proxies_url(brand: params[:brand], size: params[:size], product_type: params[:product_type], sort_by: 'created_ascending')} " Date, old to new
+
+  .main-container
+    .filter-data-options-container.js-main-container.hidden-on-small-screen
+      - if params[:brand].present?
+        - params[:brand].each do |brand|
+          - newbrand = params[:brand].dup
+          - newbrand.delete(brand)
+          = link_to test_proxies_path(size: params[:size], product_type: params[:product_type], price: params[:price], brand: newbrand) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = brand
+              .remove-filter
+
+      - if params[:size].present?
+        - params[:size].each do |size|
+          - newSize = params[:size].dup
+          - newSize.delete(size)
+          = link_to test_proxies_path(brand: params[:brand], product_type: params[:product_type], price: params[:price], size: newSize) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = "Size #{size}"
+              .remove-filter
+
+      - if params[:price].present?
+        = link_to test_proxies_path(brand: params[:brand], product_type: params[:product_type], size: params[:size]) do
+          .black-box-container
+            .black-box-parent style='position: relative'
+              .black-box style='position: relative; top: 0; left: 0'
+              .small-black-box style='position: absolute; top: 0; left: 0'
+            .sub-heading = params[:price]
+            .remove-filter
+
+      - if params[:product_type].present?
+        - params[:product_type].each do |pt|
+          - newpt = params[:product_type].dup
+          - newpt.delete(pt)
+          = link_to test_proxies_path(brand: params[:brand], size: params[:size], price: params[:price], product_type: newpt) do
+            .black-box-container
+              .black-box-parent style='position: relative'
+                .black-box style='position: relative; top: 0; left: 0'
+                .small-black-box style='position: absolute; top: 0; left: 0'
+              .sub-heading = pt
+              .remove-filter
+
+      - ProductSetting.last.filter_array.each do |filter|
+        = render partial: filter, locals: {desktop: true}
+
+    .product-container
+      .js-all-products
+        = render partial: 'test_admins/products', locals: {showFirst: true}
+
+    - if ProductSetting.last.autoscroll_on
+      .gif-container
+        .loading-gif.js-loading-gif style="background-image: url('#{ProductSetting.last.image.url}')"
+    - else
+      div style="width: 100%; text-align: center"
+        = link_to ProductSetting.last.load_more_text, 'javascript:void(0)', class: 'js-load-more button', style: 'text-align: center;width: 397px;height: 56px;font-size: 20px;'
+
+javascript:
+  Window.paramUrl = "#{request.url.split("?")[1]}"
+  Window.noOfProducts = "#{ProductSetting.last.number_of_items_to_load}"

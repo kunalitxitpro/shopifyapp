@@ -1,0 +1,17 @@
+.search-result-main-container
+  .search-result-product-container
+    .search-result-product-text PRODUCTS
+  div style="overflow: auto; background-color: red; height: 300px; width: 100%"
+    - @products.each do |product|
+      .search-result-container
+        .search-result-image style="background-image: url('#{product.first_image_url}')"
+        .search-result-sub-container
+          .search-result-vendor style="font-weight: bold" = product.vendor
+          .search-result-title  = truncate("#{product.title}", length: 45)
+          .search-result-price  = "£ #{product.price} GBP"
+  - if ProductSetting.last.related_search_on
+    .search-result-product-container
+      .search-result-product-text POPULAR SEARCHES
+      br
+      - @popular.each do |prod|
+        p = prod.title

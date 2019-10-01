@@ -1,0 +1,30 @@
+.search-result-main-container
+  .search-result-product-container
+    .search-result-product-text PRODUCTS
+  - if ProductSetting.last.overflow_scroll_on
+    .search-result-main-box style="overflow: auto"
+      - @products.each do |product|
+        a.search-result-single-box  href="/products/#{product.slug_url}"
+          div style="background-image: url('#{product.first_image_url}'); background-size: cover; background-position: center; height: 50px; width: 50px"
+          .search-result-sub-container style="margin-left: 0.5rem"
+            .search-result-vendor style="font-weight: bold" = product.vendor
+            .search-result-title = truncate("#{product.title}", length: 45)
+            .search-result-price = "£ #{product.display_price} GBP"
+  - else
+    .search-result-main-box style="overflow: hidden;"
+      - @products.each do |product|
+        a.search-result-single-box href="/products/#{product.slug_url}"
+          div style="background-image: url('#{product.first_image_url}'); background-size: cover; background-position: center; height: 50px; width: 50px"
+          .search-result-sub-container style="margin-left: 0.5rem"
+            .search-result-vendor style="font-weight: bold" = product.vendor
+            .search-result-title = truncate("#{product.title}", length: 45)
+            .search-result-price = "£ #{product.display_price} GBP"
+  - if ProductSetting.last.related_search_on
+    .search-result-product-container
+      .search-result-product-text POPULAR SEARCHES
+      br
+      .popular-search-container
+        - @popular.each do |prod|
+          a.pop-search-sub-container href="/products/#{prod.slug_url}"
+            .popular-search-icon
+            .pop-search-sub-text  = prod.title
