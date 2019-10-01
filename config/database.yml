@@ -1,0 +1,20 @@
+
+development: &default
+  adapter: postgresql
+  database: shopify_development
+  encoding: utf8
+  min_messages: warning
+  pool: 5
+  timeout: 5000
+
+test:
+  <<: *default
+  database: shopify_test
+
+production:
+  adapter: postgresql
+  database: shopify_production
+  encoding: utf8
+  min_messages: warning
+  pool: 5
+  timeout: 5000
