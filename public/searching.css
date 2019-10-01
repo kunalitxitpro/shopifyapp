@@ -1,0 +1,148 @@
+.search-result-container {
+  width: 100%;
+  display: flex;
+  height: 67px;
+  align-items: center;
+  padding: 0 0.5rem; }
+  .search-result-container:hover {
+    background-color: #000000;
+    color: white; }
+
+.search-result-main-container {
+  background-color: #f1f1f1; }
+
+.popular-search-container {
+  background-color: #ffffff;
+}
+
+.header__search-toggle {
+  display: none;
+}
+
+.search_input_mob {
+  padding-top: 17px !important;
+}
+
+@media screen and (min-width: 0px) and (max-width: 800px) {
+    .search-bar__form-wrapper {
+      padding-left: 0 !important
+    }
+}
+
+.js-mobile-search-bar.collapsed {
+  display: none;
+}
+.popular-search-sub-container {
+  display: flex;
+  align-items: center;}
+  .popular-search-sub-container:hover {
+    background-color: #000000;
+    color: white;}
+
+.popular-search-icon {
+  background-image: url("https://s3.amazonaws.com/shopify-app-prod/search.svg");
+  background-size: cover;
+  background-position: center;
+  height: 10px;
+  width: 10px;
+  margin: 0 1.5rem 0 1rem;}
+
+.js-search-results {
+  background: white;
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  z-index: 4000;
+  display: none; }
+
+.js-mobile-search-results {
+  background: white;
+  width: 100%;
+  position: absolute;
+  top: 4em;
+  z-index: 4000;
+  display: none; }
+
+.search-result-image {
+  background-size: cover;
+  background-position: center;
+  height: 50px;
+  width: 50px;
+  margin-right: 1rem; }
+
+.search-result-vendor, .search-result-title, .search-result-price {
+  line-height: 16px;
+  font-size: 14px;
+  color: black;
+ }
+
+.search-result-sub-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start; }
+
+.search-result-product-container {
+  background-color: #F4F4F4;
+  height: 35px;
+  line-height: 35px;
+  border-top: 1px solid black; }
+
+.search-result-product-text {
+  float: left;
+  margin-left: 1rem;
+  font-weight: bold; }
+
+.search-result-main-box {
+  max-height: 334px;
+  width: 100%;
+}
+
+.search-result-main-box > a {
+  width: 100%;
+  position: inherit;
+  display: flex;
+  height: auto;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  background-color: white;
+}
+
+.search-result-main-box > a:hover {
+  background-color: black;
+}
+
+.search-result-main-box > a:hover  .search-result-price {
+  color: white;
+}
+
+.search-result-main-box > a:hover  .search-result-title {
+  color: white;
+}
+
+.search-result-main-box > a:hover  .search-result-vendor {
+  color: white;
+}
+
+.popular-search-container > a {
+  position: inherit;
+  width: 100%;
+  height: 30px;
+  position: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.popular-search-container > a:hover {
+  background-color: black;
+}
+
+.pop-search-sub-text {
+  color: black
+}
+
+.popular-search-container > a:hover  .pop-search-sub-text{
+  color: white;
+}
+
+.popular-search-container > a:hover  .popular-search-icon{
+  background-image: url("https://s3.amazonaws.com/shopify-app-prod/search-white.svg");
+}
